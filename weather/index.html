@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather App</title>
+</head>
+<body>
+<h1>Weather App</h1>
+<input type="text" id="cityInput" placeholder="Enter City Name">
+<input type="text" id="latInput" placeholder="Enter Latitude">
+<input type="text" id="lonInput" placeholder="Enter Longitude">
+<button onclick="getData()">Get Weather</button>
+<div id="weatherResult"></div>
+ 
+    <script>
+        function getData() {
+            var city = document.getElementById("cityInput").value;
+            var lat = document.getElementById("latInput").value;
+            var lon = document.getElementById("lonInput").value;
+ 
+            // TODO: Send the data to the backend using AJAX fetch or XMLHttpRequest
+        }
+</script>
+</body>
+</html>

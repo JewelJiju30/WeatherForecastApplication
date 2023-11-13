@@ -1,0 +1,20 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    networks:
+      - mynetwork
+    ports:
+      - "5000:5000"
+
+  pythonapp:
+    build: .
+    container_name: my-weather-app
+    networks:
+      - mynetwork
+    depends_on:
+      - mongodb
+
+networks:
+  mynetwork:
