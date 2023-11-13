@@ -7,8 +7,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<WeatherApp />} />
-        <Route path="/forecast_weather" element={<ForecastLogin/>}/>
+        <Route path="/" element={<ForecastLogin />} />
+        <Route path="/current _weather" element={<WeatherApp />} />
+
       </Routes>
     </Router>
   );

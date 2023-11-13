@@ -62,13 +62,13 @@ def read_json_file_forecast():
     return location_names
 
 def update_json_file(city, data):
-    query = {f'{city}.location_name': city}
+    query = {'city.location_name': city}
     existing_document = weather_collection.find_one(query)
     print(existing_document)
     if existing_document:
-        weather_collection.update_one(query,{"$set":{city:data}},upsert=True)
+        weather_collection.update_one(query,{"$set":{"city":data}},upsert=True)
     else:
-        weather_collection.insert_one({city:data})      
+        weather_collection.insert_one({"city":data})      
  
  
 def update_json_file_forecast(city, data):
@@ -133,8 +133,17 @@ def getExisting():
     cityIds = ",".join(str(city_id) for city_id in city_id)
     group_temp_url = f"https://api.openweathermap.org/data/2.5/group?appid={api_key}&id={cityIds}&units=metric"
     response = requests.get(group_temp_url)
-    data = response.json()
-    return data
+    api_response=[]
+    
+    if response.status_code == 200:
+            api_data = response.json()
+            for listData in api_data["list"]:
+                response_req={}
+                response_req["temperature"]=listData["main"]
+                response_req["coord"]=listData["coord"]
+                response_req["location_name"]=listData["name"]
+                api_response.append({"city": response_req})
+    return api_response
  
 @app.route('/weather/getExisting/forecast', methods=['GET'])
 def getExistingForecast():

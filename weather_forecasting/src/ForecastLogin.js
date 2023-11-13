@@ -1,4 +1,4 @@
-// ForecastLogin component
+
 import React, { useState } from "react";
 import { TextField } from '@mui/material';
 import { Button } from 'primereact/button';
@@ -16,8 +16,8 @@ const ForecastLogin = (props) => {
     const currentDate = new Date();
     const options = { day: 'numeric', month: 'short' };
     const [cityName, setCityName] = useState('');
-    const [longitude, setLongitude] = useState('76.9167');
-    const [latitude, setLatitude] = useState('8.4833');
+    const [longitude, setLongitude] = useState('');
+    const [latitude, setLatitude] = useState('');
     const [long, setLong] = useState('');
     const [lat, setLat] = useState('');
     const [numOfPointers, setNumOfPointers] = useState([]);
@@ -48,7 +48,7 @@ const ForecastLogin = (props) => {
             .then(response => response.json())
 
             .then((data) => {
-                console.log(data)
+
                 setNumOfPointers(data)
 
                 const newArray2 = [];
@@ -67,7 +67,7 @@ const ForecastLogin = (props) => {
                     });
                 });
 
-                console.log(newArray2);
+
                 setForecastDetails(newArray2)
 
             })
@@ -96,7 +96,7 @@ const ForecastLogin = (props) => {
                 color: 'blue',
                 temperature: item.temperatureArray
             }
-            // }))
+
         }));
 
         const pointerData2 = temp.map((temperatureItem, index) => ({
@@ -229,7 +229,7 @@ const ForecastLogin = (props) => {
 
 
     const deviation = calculateDeviation(temp, min_temp, max_temp);
-    console.log(`Deviation: ${deviation}`);
+
 
 
 
@@ -238,7 +238,6 @@ const ForecastLogin = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true)
-        //   const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?&q=${cityName}&cnt=4&appid=6e7c89d540009fa84fa86c67729900ae`;
         const apiUrl = 'http://localhost:5000/weather/getNew/forecast';
         const requestData = {
             "location": {
@@ -248,7 +247,7 @@ const ForecastLogin = (props) => {
             }
         };
 
-        // Sending a POST request to the backend service
+
         fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -259,7 +258,7 @@ const ForecastLogin = (props) => {
             .then(response => response.json())
 
             .then((data) => {
-                // Extract temp values from the temperature array
+
                 const extractedTemps = data?.temperature.map(
                     (item) => item.temperature_List.temp
                 );
@@ -275,7 +274,7 @@ const ForecastLogin = (props) => {
             .finally(() => {
                 setLoading(false);
             });
-        //  window.location.href="http://localhost:3000/weather-result"
+
     };
 
     return (
@@ -287,8 +286,8 @@ const ForecastLogin = (props) => {
                     setActiveIndex(e.index)
                     setLong('')
                     setLat('')
-                    setLongitude('76.9167')
-                    setLatitude('8.4833')
+                    setLongitude('')
+                    setLatitude('')
                     setZoom('2')
                     setCityName('')
                     setMaxTemp('')
